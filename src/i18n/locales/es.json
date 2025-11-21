@@ -18,7 +18,24 @@
   "monster": {
     "newMonster": "¡NUEVO MONSTRUO!",
     "goldEarned": "¡Oro Ganado!",
-    "hp": "PV"
+    "hp": "PV",
+    "idleProvocations": [
+      "¿Tienes miedo?",
+      "¡Vamos, golpéame!",
+      "¿Qué pasa? ¿Demasiado débil?",
+      "Estoy esperando...",
+      "¿Te estás rindiendo?",
+      "¡No seas cobarde!",
+      "¿A dónde fuiste?",
+      "¿Sigues vivo?",
+      "¡Eres muy lento!",
+      "¿Eso es todo lo que tienes?",
+      "Me estoy aburriendo...",
+      "¡Muéstrame lo que puedes hacer!",
+      "¿Estás siquiera intentando?",
+      "¡Vuelve y pelea!",
+      "¡No huyas!"
+    ]
   },
   "upgrades": {
     "yourUpgrades": "Tus Mejoras:",

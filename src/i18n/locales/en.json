@@ -18,7 +18,24 @@
   "monster": {
     "newMonster": "NEW MONSTER!",
     "goldEarned": "Gold Earned!",
-    "hp": "HP"
+    "hp": "HP",
+    "idleProvocations": [
+      "Are you scared?",
+      "Come on, hit me!",
+      "What's wrong? Too weak?",
+      "I'm waiting...",
+      "Are you giving up?",
+      "Don't be a coward!",
+      "Where did you go?",
+      "Still alive?",
+      "You're too slow!",
+      "Is that all you've got?",
+      "I'm getting bored...",
+      "Show me what you can do!",
+      "Are you even trying?",
+      "Come back and fight!",
+      "Don't run away!"
+    ]
   },
   "upgrades": {
     "yourUpgrades": "Your Upgrades:",

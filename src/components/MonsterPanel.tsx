@@ -17,42 +17,80 @@ export const MonsterPanel = () => {
   const previousMonsterIdRef = useRef(monster.id);
   const previousHpRef = useRef(monster.currentHp);
   const previousMonsterRewardRef = useRef(monster.reward);
+  const isInitialMount = useRef(true);
+  const lastClickTimeRef = useRef<number>(Date.now());
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Detect new monster spawn
+  // Detect new monster spawn and show gold reward
   useEffect(() => {
-    if (monster.id !== previousMonsterIdRef.current) {
+    // Skip on initial mount
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
       previousMonsterIdRef.current = monster.id;
-      setShowSpawnEffect(true);
-      const timer = setTimeout(() => setShowSpawnEffect(false), 1500);
-      return () => clearTimeout(timer);
+      previousHpRef.current = monster.currentHp;
+      previousMonsterRewardRef.current = monster.reward;
+      return;
     }
-  }, [monster.id]);
 
-  // Detect monster death and show gold reward
-  useEffect(() => {
     // When a new monster spawns (monster ID changes), it means the previous one died
-    if (monster.id !== previousMonsterIdRef.current && previousMonsterIdRef.current !== 0) {
+    if (monster.id !== previousMonsterIdRef.current) {
+      // Show spawn effect
+      setShowSpawnEffect(true);
+      const spawnTimer = setTimeout(() => setShowSpawnEffect(false), 1500);
+      
       // Use the reward from the previous monster (the one that just died)
       const reward = previousMonsterRewardRef.current;
       if (reward > 0) {
+        // Show gold notification when new monster appears
         const rewardId = Date.now();
         setGoldRewards((prev) => [...prev, { id: rewardId, amount: reward }]);
         
         // Remove after animation
         setTimeout(() => {
           setGoldRewards((prev) => prev.filter((r) => r.id !== rewardId));
-        }, 3000);
+        }, 2500);
       }
+      
+      // Update refs after showing notification
+      previousMonsterIdRef.current = monster.id;
+      previousMonsterRewardRef.current = monster.reward;
+      
+      // Cleanup timer on unmount or when monster changes again
+      return () => {
+        clearTimeout(spawnTimer);
+      };
     }
     
-    // Update refs
+    // Update HP ref
     previousHpRef.current = monster.currentHp;
-    previousMonsterIdRef.current = monster.id;
-    previousMonsterRewardRef.current = monster.reward;
   }, [monster.id, monster.reward, monster.currentHp]);
+
+  // Set up initial idle timer
+  useEffect(() => {
+    if (!isInitialMount.current) {
+      idleTimerRef.current = setTimeout(() => {
+        showIdleProvocation();
+      }, 3000);
+    }
+    
+    return () => {
+      if (idleTimerRef.current) {
+        clearTimeout(idleTimerRef.current);
+      }
+    };
+  }, [monster.id]);
 
   const handleClick = () => {
     damageMutation.mutate();
+    
+    // Update last click time
+    lastClickTimeRef.current = Date.now();
+    
+    // Clear any existing idle timer
+    if (idleTimerRef.current) {
+      clearTimeout(idleTimerRef.current);
+      idleTimerRef.current = null;
+    }
     
     // Show floating damage number
     const id = Date.now();
@@ -63,7 +101,7 @@ export const MonsterPanel = () => {
       setDamageNumbers((prev) => prev.filter((n) => n.id !== id));
     }, 1000);
 
-    // Show random speech bubble only sometimes (5% chance)
+    // Show random speech bubble only sometimes (10% chance)
     if (Math.random() < 0.1) {
       const bubbleId = Date.now() + Math.random();
       const phrase = generateAttackPhrase(t);
@@ -74,6 +112,26 @@ export const MonsterPanel = () => {
       setTimeout(() => {
         setSpeechBubbles((prev) => prev.filter((b) => b.id !== bubbleId));
       }, 3000);
+    }
+    
+    // Set up new idle timer (3 seconds of inactivity)
+    idleTimerRef.current = setTimeout(() => {
+      showIdleProvocation();
+    }, 3000);
+  };
+
+  const showIdleProvocation = () => {
+    const provocationPhrases = t('monster.idleProvocations', { returnObjects: true }) as string[];
+    if (provocationPhrases && Array.isArray(provocationPhrases) && provocationPhrases.length > 0) {
+      const bubbleId = Date.now() + Math.random();
+      const phrase = provocationPhrases[Math.floor(Math.random() * provocationPhrases.length)];
+      const offsetX = (Math.random() - 0.5) * 100;
+      setSpeechBubbles((prev) => [...prev, { id: bubbleId, text: phrase, offsetX }]);
+      
+      // Remove speech bubble after animation
+      setTimeout(() => {
+        setSpeechBubbles((prev) => prev.filter((b) => b.id !== bubbleId));
+      }, 4000);
     }
   };
 
@@ -86,15 +144,15 @@ export const MonsterPanel = () => {
         {goldRewards.map((reward) => (
           <motion.div
             key={reward.id}
-            initial={{ opacity: 0, scale: 0.3, y: 0 }}
+            initial={{ opacity: 0, scale: 0.5, y: 0 }}
             animate={{ 
               opacity: [0, 1, 1, 1, 0], 
-              scale: [0.3, 1.3, 1.1, 1, 0.9],
-              y: [-200, -200, -200, -250]
+              scale: [0.5, 1.1, 1, 1, 0.95],
+              y: [-150, -150, -150, -180]
             }}
             exit={{ opacity: 0, scale: 0 }}
             transition={{ 
-              duration: 3,
+              duration: 2.5,
               times: [0, 0.2, 0.5, 0.8, 1],
               ease: "easeOut"
             }}
@@ -105,37 +163,37 @@ export const MonsterPanel = () => {
             }}
           >
             <div 
-              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 rounded-full px-8 py-4 flex items-center gap-4"
+              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 rounded-full px-4 py-2 flex items-center gap-2"
               style={{
-                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(255, 215, 0, 0.8), inset 0 2px 10px rgba(255, 255, 255, 0.3)',
-                border: '3px solid #f59e0b',
-                backdropFilter: 'blur(10px)',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 215, 0, 0.6), inset 0 1px 5px rgba(255, 255, 255, 0.3)',
+                border: '2px solid #f59e0b',
+                backdropFilter: 'blur(8px)',
               }}
             >
               <motion.span
-                animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 0.5, repeat: Infinity }}
-                className="text-4xl"
-                style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))' }}
+                className="text-xl"
+                style={{ filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3))' }}
               >
                 🪙
               </motion.span>
               <div className="flex flex-col items-center">
-                <span className="text-xs font-bold text-yellow-900 uppercase tracking-wide" style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)' }}>
+                <span className="text-[10px] font-semibold text-yellow-900 uppercase tracking-wide" style={{ textShadow: '0.5px 0.5px 1px rgba(0, 0, 0, 0.2)' }}>
                   {t('monster.goldEarned')}
                 </span>
                 <span 
-                  className="text-3xl font-extrabold text-yellow-900"
-                  style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}
+                  className="text-lg font-bold text-yellow-900"
+                  style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)' }}
                 >
                   +{reward.amount.toFixed(2)}
                 </span>
               </div>
               <motion.span
-                animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+                animate={{ rotate: [0, 360], scale: [1, 1.05, 1] }}
                 transition={{ rotate: { duration: 2, repeat: Infinity, ease: "linear" }, scale: { duration: 1, repeat: Infinity } }}
-                className="text-4xl"
-                style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5))' }}
+                className="text-xl"
+                style={{ filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3))' }}
               >
                 💰
               </motion.span>
