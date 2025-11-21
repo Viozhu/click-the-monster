@@ -1,0 +1,98 @@
+{
+  "stats": {
+    "title": "Estadísticas",
+    "gold": "Oro",
+    "clickDamage": "Daño por Clic",
+    "dps": "DPS",
+    "monsterLevel": "Nivel del Monstruo",
+    "close": "Cerrar estadísticas"
+  },
+  "shop": {
+    "title": "Tienda de Mejoras",
+    "close": "Cerrar tienda",
+    "buyNow": "Comprar Ahora",
+    "notEnoughGold": "Oro Insuficiente",
+    "clickDamage": "Daño por Clic",
+    "dps": "DPS"
+  },
+  "monster": {
+    "newMonster": "¡NUEVO MONSTRUO!",
+    "goldEarned": "¡Oro Ganado!",
+    "hp": "PV"
+  },
+  "upgrades": {
+    "yourUpgrades": "Tus Mejoras:",
+    "sharpClaws": "Garras Afiladas",
+    "powerStrike": "Golpe Poderoso",
+    "autoAttack": "Ataque Automático",
+    "rapidFire": "Fuego Rápido"
+  },
+  "common": {
+    "toggleStats": "Alternar estadísticas",
+    "toggleShop": "Alternar tienda"
+  },
+  "attackPhrases": {
+    "funny": [
+      "¡Oye! ¡Eso hace cosquillas!",
+      "¿Eso es todo lo que tienes?",
+      "¡He tenido peores!",
+      "¿A eso le llamas un ataque?",
+      "¡Mi abuela golpea más fuerte!",
+      "Eso fue... ¿lindo?",
+      "¿Estás siquiera intentando?",
+      "¡Apenas lo siento!",
+      "¡Buen intento, humano diminuto!",
+      "¿Ese es mi punto débil?",
+      "¡Me estás haciendo reír!",
+      "¡Me han golpeado peor!",
+      "¿Esto es un masaje?",
+      "¡Sigue, estoy aburrido!",
+      "¿Se supone que eso duele?",
+      "¡Eres adorable!",
+      "¡He sentido brisas más fuertes!",
+      "¿Me estás haciendo cosquillas?",
+      "¿Eso es todo? ¿En serio?",
+      "¡Estoy bostezando aquí!"
+    ],
+    "pain": [
+      "¡Ay! ¡Eso duele!",
+      "¡Agh! ¡Para!",
+      "¡Oof! ¡No en la cara!",
+      "¡Argh! ¡Pagarás por eso!",
+      "¡Ow! ¡Eso pica!",
+      "¡Ugh! ¡Lo sentí!",
+      "¡Ack! ¡Mi punto débil!",
+      "¡Owie! ¡Eso no es justo!",
+      "¡Eek! ¡Demasiado!",
+      "¡Yowch! ¡Ten piedad!",
+      "¡Oof! ¡Justo en los sentimientos!",
+      "¡Agh! ¡Soy vulnerable!",
+      "¡Ay! ¡Ese es mi lugar!",
+      "¡Argh! ¡Me atrapaste!",
+      "¡Ow! ¡No soy invencible!",
+      "¡Ugh! ¡Eso realmente dolió!",
+      "¡Ack! ¡Estoy recibiendo daño!",
+      "¡Owie! ¡Eres persistente!",
+      "¡Eek! ¡Lo estoy sintiendo ahora!",
+      "¡Yowch! ¡Eso es efectivo!"
+    ]
+  },
+  "monsterNames": {
+    "prefixes": [
+      "Oscuro", "Sombra", "Sangre", "Fuego", "Hielo", "Trueno", "Veneno", "Caos",
+      "Muerte", "Noche", "Tormenta", "Escarcha", "Maldito", "Antiguo", "Salvaje", "Feroz",
+      "Brutal", "Vicioso", "Terrorífico", "Terrible", "Malvado", "Siniestro",
+      "Furioso", "Iracundo", "Salvaje", "Feroz", "Poderoso", "Fuerte", "Sombrío",
+      "Eterno", "Infernal", "Abismal", "Demoníaco", "Titánico", "Colosal"
+    ],
+    "suffixes": [
+      "Bestia", "Demonio", "Demonio", "Terror", "Horror", "Monstruo", "Criatura",
+      "Abominación", "Bruto", "Titán", "Gigante", "Coloso", "Destructor",
+      "Devastador", "Devorador", "Asesino", "Cazador", "Depredador", "Azote",
+      "Plaga", "Ruina", "Perdición", "Muerte", "Sombra", "Fantasma", "Espectro",
+      "Aparición", "Segador", "Verdugo", "Carnicero", "Merodeador", "Asaltante",
+      "Guerrero", "Guardián", "Centinela", "Vigilante", "Guardián", "Señor"
+    ]
+  }
+}
+

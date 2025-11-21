@@ -1,0 +1,98 @@
+{
+  "stats": {
+    "title": "Stats",
+    "gold": "Gold",
+    "clickDamage": "Click Damage",
+    "dps": "DPS",
+    "monsterLevel": "Monster Level",
+    "close": "Close stats"
+  },
+  "shop": {
+    "title": "Upgrade Shop",
+    "close": "Close shop",
+    "buyNow": "Buy Now",
+    "notEnoughGold": "Not Enough Gold",
+    "clickDamage": "Click Damage",
+    "dps": "DPS"
+  },
+  "monster": {
+    "newMonster": "NEW MONSTER!",
+    "goldEarned": "Gold Earned!",
+    "hp": "HP"
+  },
+  "upgrades": {
+    "yourUpgrades": "Your Upgrades:",
+    "sharpClaws": "Sharp Claws",
+    "powerStrike": "Power Strike",
+    "autoAttack": "Auto Attack",
+    "rapidFire": "Rapid Fire"
+  },
+  "common": {
+    "toggleStats": "Toggle stats",
+    "toggleShop": "Toggle shop"
+  },
+  "attackPhrases": {
+    "funny": [
+      "Hey! That tickles!",
+      "Is that all you got?",
+      "I've had worse!",
+      "You call that an attack?",
+      "My grandma hits harder!",
+      "That was... cute?",
+      "Are you even trying?",
+      "I'm barely feeling it!",
+      "Nice try, tiny human!",
+      "That's my weak spot?",
+      "You're making me laugh!",
+      "I've been hit by worse!",
+      "Is this a massage?",
+      "Keep going, I'm bored!",
+      "That's supposed to hurt?",
+      "You're adorable!",
+      "I've felt stronger breezes!",
+      "Are you tickling me?",
+      "That's it? Really?",
+      "I'm yawning here!"
+    ],
+    "pain": [
+      "Ouch! That hurts!",
+      "Agh! Stop it!",
+      "Oof! Not the face!",
+      "Argh! You'll pay for that!",
+      "Ow! That stings!",
+      "Ugh! I felt that!",
+      "Ack! My weak spot!",
+      "Owie! That's not fair!",
+      "Eek! Too much!",
+      "Yowch! Have mercy!",
+      "Oof! Right in the feels!",
+      "Agh! I'm vulnerable!",
+      "Ouch! That's my spot!",
+      "Argh! You got me!",
+      "Ow! I'm not invincible!",
+      "Ugh! That actually hurt!",
+      "Ack! I'm taking damage!",
+      "Owie! You're persistent!",
+      "Eek! I'm feeling it now!",
+      "Yowch! That's effective!"
+    ]
+  },
+  "monsterNames": {
+    "prefixes": [
+      "Dark", "Shadow", "Blood", "Fire", "Ice", "Thunder", "Venom", "Chaos",
+      "Death", "Night", "Storm", "Frost", "Cursed", "Ancient", "Feral", "Savage",
+      "Brutal", "Vicious", "Terrifying", "Dreadful", "Wicked", "Sinister",
+      "Raging", "Furious", "Wild", "Fierce", "Mighty", "Powerful", "Grim",
+      "Eternal", "Infernal", "Abyssal", "Demonic", "Titanic", "Colossal"
+    ],
+    "suffixes": [
+      "Beast", "Fiend", "Demon", "Terror", "Horror", "Monster", "Creature",
+      "Abomination", "Brute", "Titan", "Giant", "Colossus", "Destroyer",
+      "Ravager", "Devourer", "Slayer", "Hunter", "Predator", "Scourge",
+      "Plague", "Bane", "Doom", "Death", "Shadow", "Phantom", "Specter",
+      "Wraith", "Reaper", "Executioner", "Butcher", "Marauder", "Raider",
+      "Warrior", "Guardian", "Sentinel", "Watcher", "Keeper", "Lord"
+    ]
+  }
+}
+
