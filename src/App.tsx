@@ -84,7 +84,7 @@ const GameContent = () => {
 
   return (
     <div 
-      className="min-h-screen pb-20 md:pb-24 relative overflow-x-hidden"
+      className="min-h-screen pb-20 md:pb-24 relative overflow-y-hidden"
       style={backgroundStyle}
     >
       {/* Language Selector */}
@@ -130,10 +130,10 @@ const GameContent = () => {
         </div>
       )}
 
-      <div className="container mx-auto px-2 sm:px-4 pb-8 pt-4">
+      <div className="container mx-auto px-2 sm:px-4 pb-8 pt-4 overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-center lg:items-start justify-center min-h-[calc(100vh-120px)] md:min-h-[calc(100vh-140px)]">
           {/* Center - Monster */}
-          <div className="flex items-center justify-center w-full flex-1 min-h-[400px] md:min-h-[500px] lg:min-h-[600px]">
+          <div className="flex items-center justify-center w-full flex-1 h-screen overflow-y-hidden" style={{ touchAction: 'pan-x' }}>
             <div className="flex-1 flex justify-center">
               <MonsterPanel />
             </div>
