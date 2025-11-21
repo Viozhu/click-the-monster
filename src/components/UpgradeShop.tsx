@@ -40,24 +40,24 @@ export const UpgradeShop = ({ isOpen, onClose }: UpgradeShopProps) => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 h-full w-100 bg-white shadow-2xl z-50 overflow-y-auto lg:fixed lg:top-0 lg:h-full lg:shadow-lg lg:rounded-lg"
+            className="fixed right-0 top-0 h-full w-full max-w-sm bg-white shadow-2xl z-50 overflow-y-auto lg:max-w-none lg:w-80 lg:rounded-lg"
           >
             <div className="flex flex-col h-full">
-              <div className="flex justify-between items-center p-6 pb-4 border-b border-gray-200">
-                <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                  <span>🛒</span>
+              <div className="flex justify-between items-center p-4 sm:p-6 pb-3 sm:pb-4 border-b border-gray-200">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center gap-2">
+                  <span className="text-2xl sm:text-3xl">🛒</span>
                   {t('shop.title')}
                 </h2>
                 <button
                   onClick={onClose}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-gray-500 hover:text-gray-700 text-2xl sm:text-3xl lg:hidden"
                   aria-label={t('shop.close')}
                 >
                   ×
                 </button>
               </div>
               
-              <div className="flex-1 overflow-y-auto p-6 pt-4">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 pt-3 sm:pt-4">
                 <div className="space-y-3">
                   {upgrades.map((upgrade) => {
                     const canAfford = player.gold >= upgrade.cost;
@@ -93,33 +93,33 @@ export const UpgradeShop = ({ isOpen, onClose }: UpgradeShopProps) => {
                         key={upgrade.id}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className={`border-2 rounded-lg p-4 transition-all ${
+                        className={`border-2 rounded-lg p-3 sm:p-4 transition-all ${
                           canAfford 
                             ? 'border-blue-300 bg-gradient-to-br from-blue-50 to-white hover:shadow-md' 
                             : 'border-gray-200 bg-gray-50 opacity-60'
                         }`}
                       >
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="flex items-start gap-3 flex-1">
-                            <div className="text-3xl">{upgradeIcon}</div>
-                            <div className="flex-1">
-                              <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">
-                                {upgradeName}
+                        <div className="flex justify-between items-start mb-2 sm:mb-3">
+                          <div className="flex items-start gap-2 sm:gap-3 flex-1 min-w-0">
+                            <div className="text-2xl sm:text-3xl flex-shrink-0">{upgradeIcon}</div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-bold text-gray-800 text-base sm:text-lg flex items-center gap-2 flex-wrap">
+                                <span className="break-words">{upgradeName}</span>
                                 {upgrade.timesBought > 0 && (
-                                  <span className="text-xs bg-green-500 text-white rounded-full px-2 py-0.5 font-bold">
+                                  <span className="text-xs bg-green-500 text-white rounded-full px-2 py-0.5 font-bold flex-shrink-0">
                                     ×{upgrade.timesBought}
                                   </span>
                                 )}
                               </h3>
-                              <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
+                              <p className="text-xs sm:text-sm text-gray-600 mt-1 flex items-center gap-1">
                                 {upgrade.type === 'click' ? '⚔️' : '⚡'}
-                                {effectText}
+                                <span className="break-words">{effectText}</span>
                               </p>
                             </div>
                           </div>
-                          <div className="text-right flex items-center gap-1">
-                            <span className="text-xl">🪙</span>
-                            <p className="text-yellow-600 font-bold text-lg">
+                          <div className="text-right flex items-center gap-1 flex-shrink-0 ml-2">
+                            <span className="text-lg sm:text-xl">🪙</span>
+                            <p className="text-yellow-600 font-bold text-base sm:text-lg">
                               {upgrade.cost.toFixed(2)}
                             </p>
                           </div>
@@ -128,7 +128,7 @@ export const UpgradeShop = ({ isOpen, onClose }: UpgradeShopProps) => {
                         <button
                           onClick={() => handleBuy(upgrade.id, upgrade.cost)}
                           disabled={!canAfford}
-                          className={`w-full py-2.5 px-4 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
+                          className={`w-full py-2 sm:py-2.5 px-3 sm:px-4 rounded-lg font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2 ${
                             canAfford
                               ? 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg'
                               : 'bg-gray-300 text-gray-500 cursor-not-allowed'

@@ -156,14 +156,13 @@ export const MonsterPanel = () => {
               times: [0, 0.2, 0.5, 0.8, 1],
               ease: "easeOut"
             }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[9999]"
             style={{ 
-              zIndex: 9999,
               willChange: 'transform, opacity'
             }}
           >
             <div 
-              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 rounded-full px-4 py-2 flex items-center gap-2"
+              className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 rounded-full px-3 py-1.5 md:px-4 md:py-2 flex items-center gap-1.5 md:gap-2"
               style={{
                 boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 215, 0, 0.6), inset 0 1px 5px rgba(255, 255, 255, 0.3)',
                 border: '2px solid #f59e0b',
@@ -173,17 +172,17 @@ export const MonsterPanel = () => {
               <motion.span
                 animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 0.5, repeat: Infinity }}
-                className="text-xl"
+                className="text-lg md:text-xl"
                 style={{ filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3))' }}
               >
                 🪙
               </motion.span>
               <div className="flex flex-col items-center">
-                <span className="text-[10px] font-semibold text-yellow-900 uppercase tracking-wide" style={{ textShadow: '0.5px 0.5px 1px rgba(0, 0, 0, 0.2)' }}>
+                <span className="text-[8px] md:text-[10px] font-semibold text-yellow-900 uppercase tracking-wide" style={{ textShadow: '0.5px 0.5px 1px rgba(0, 0, 0, 0.2)' }}>
                   {t('monster.goldEarned')}
                 </span>
                 <span 
-                  className="text-lg font-bold text-yellow-900"
+                  className="text-sm md:text-lg font-bold text-yellow-900"
                   style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)' }}
                 >
                   +{reward.amount.toFixed(2)}
@@ -192,7 +191,7 @@ export const MonsterPanel = () => {
               <motion.span
                 animate={{ rotate: [0, 360], scale: [1, 1.05, 1] }}
                 transition={{ rotate: { duration: 2, repeat: Infinity, ease: "linear" }, scale: { duration: 1, repeat: Infinity } }}
-                className="text-xl"
+                className="text-lg md:text-xl"
                 style={{ filter: 'drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3))' }}
               >
                 💰
@@ -202,12 +201,23 @@ export const MonsterPanel = () => {
         ))}
       </AnimatePresence>
 
-      <div className="flex flex-col items-center justify-center p-8">
+      <div className="flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleClick}
+          onContextMenu={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
+          onSelectStart={(e) => e.preventDefault()}
           className="cursor-pointer select-none relative"
+          style={{
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none',
+            touchAction: 'manipulation',
+            WebkitTouchCallout: 'none',
+          }}
         >
           <div className="relative">
           {/* Spawn Effect - Glow Ring */}
@@ -219,8 +229,8 @@ export const MonsterPanel = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 via-red-500 to-orange-500 blur-xl pointer-events-none z-0"
               style={{ 
-                width: '256px',
-                height: '256px',
+                width: 'clamp(160px, 40vw, 256px)',
+                height: 'clamp(160px, 40vw, 256px)',
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)'
@@ -236,8 +246,8 @@ export const MonsterPanel = () => {
               transition={{ duration: 0.3 }}
               className="absolute inset-0 rounded-full bg-white pointer-events-none z-5"
               style={{ 
-                width: '256px',
-                height: '256px',
+                width: 'clamp(160px, 40vw, 256px)',
+                height: 'clamp(160px, 40vw, 256px)',
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
@@ -255,7 +265,7 @@ export const MonsterPanel = () => {
               transition={{ duration: 1.5, ease: "easeOut" }}
               className="absolute top-0 left-1/2 transform -translate-x-1/2 pointer-events-none z-30"
             >
-              <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-purple-600 text-white px-8 py-2 rounded-full font-bold text-xl shadow-2xl border-2 border-white whitespace-nowrap min-w-fit">
+              <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-purple-600 text-white px-4 py-1.5 md:px-8 md:py-2 rounded-full font-bold text-sm md:text-xl shadow-2xl border-2 border-white whitespace-nowrap">
                 {t('monster.newMonster')}
               </div>
             </motion.div>
@@ -276,7 +286,7 @@ export const MonsterPanel = () => {
               stiffness: 200,
               damping: 15
             }}
-            className="w-64 h-64 rounded-full overflow-hidden shadow-2xl border-4 border-red-900 bg-gray-200 relative z-10"
+            className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden shadow-2xl border-4 border-red-900 bg-gray-200 relative z-10"
             style={{
               filter: showSpawnEffect ? 'drop-shadow(0 0 30px rgba(255, 0, 0, 0.8))' : 'none',
               transition: 'filter 0.3s ease-out'
@@ -285,13 +295,26 @@ export const MonsterPanel = () => {
             <img
               src={monster.imageUrl}
               alt={monster.name}
-              className="w-full h-full object-cover"
+              draggable="false"
+              onDragStart={(e) => e.preventDefault()}
+              onContextMenu={(e) => e.preventDefault()}
+              onSelectStart={(e) => e.preventDefault()}
+              className="w-full h-full object-cover pointer-events-none"
+              style={{
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none',
+                WebkitUserDrag: 'none',
+                WebkitTouchCallout: 'none',
+              }}
               onError={(e) => {
                 // Fallback to emoji if image fails to load
                 const target = e.target as HTMLImageElement;
                 target.style.display = 'none';
                 if (target.parentElement) {
-                  target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-600 to-red-800"><div class="text-white text-6xl">👹</div></div>';
+                  const emojiSize = window.innerWidth < 640 ? 'text-4xl' : window.innerWidth < 768 ? 'text-5xl' : 'text-6xl';
+                  target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-600 to-red-800"><div class="text-white ${emojiSize}">👹</div></div>`;
                 }
               }}
             />
@@ -317,7 +340,7 @@ export const MonsterPanel = () => {
               }}
             >
               <span 
-                className="text-4xl font-extrabold text-red-500"
+                className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-red-500"
                 style={{
                   WebkitTextStroke: '2px rgba(255, 255, 255, 0.9)',
                   paintOrder: 'stroke fill',
@@ -353,8 +376,8 @@ export const MonsterPanel = () => {
                 }}
               >
                 {/* Speech bubble */}
-                <div className="relative bg-white rounded-2xl px-4 py-2 border-2 border-black shadow-lg max-w-xs">
-                  <p className="text-sm font-bold text-gray-900 text-center whitespace-nowrap">
+                <div className="relative bg-white rounded-2xl px-3 py-1.5 md:px-4 md:py-2 border-2 border-black shadow-lg max-w-[200px] md:max-w-xs">
+                  <p className="text-xs md:text-sm font-bold text-gray-900 text-center break-words">
                     {bubble.text}
                   </p>
                   {/* Speech bubble tail */}
@@ -389,13 +412,13 @@ export const MonsterPanel = () => {
       </motion.div>
 
       {/* Monster Info */}
-      <div className="mt-6 text-center">
+      <div className="mt-4 md:mt-6 text-center px-2">
         <motion.h2
           key={monster.id}
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-xl font-bold mb-3 px-4 py-2 rounded-lg inline-block"
+          className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 px-3 py-1.5 md:px-4 md:py-2 rounded-lg inline-block"
           style={{
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)',
             backdropFilter: 'blur(8px)',
@@ -409,7 +432,7 @@ export const MonsterPanel = () => {
         </motion.h2>
         
         {/* HP Bar */}
-        <div className="w-80 bg-gray-200 rounded-full h-8 mb-2 overflow-hidden relative">
+        <div className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[400px] mx-auto bg-gray-200 rounded-full h-6 md:h-8 mb-2 overflow-hidden relative">
           <motion.div
             initial={{ width: `${hpPercentage}%` }}
             animate={{ width: `${hpPercentage}%` }}
@@ -418,7 +441,7 @@ export const MonsterPanel = () => {
           />
           {/* HP Text overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-sm font-bold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+            <span className="text-xs md:text-sm font-bold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] px-2">
               {t('monster.hp')}: {monster.currentHp.toFixed(1)} / {monster.maxHp.toFixed(1)}
             </span>
           </div>

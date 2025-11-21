@@ -21,7 +21,7 @@ export const LanguageSelector = () => {
   };
 
   return (
-    <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+    <div className="fixed top-2 right-2 sm:top-4 sm:right-4 z-50 flex items-center gap-1.5 sm:gap-2">
       {/* GitHub Icon */}
       <motion.a
         href="https://github.com/Viozhu"
@@ -31,11 +31,11 @@ export const LanguageSelector = () => {
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="bg-white/90 backdrop-blur-sm p-2.5 rounded-lg shadow-lg border-2 border-gray-200 hover:bg-white transition-all flex items-center justify-center"
+        className="bg-white/90 backdrop-blur-sm p-2 sm:p-2.5 rounded-lg shadow-lg border-2 border-gray-200 hover:bg-white transition-all flex items-center justify-center"
         aria-label="GitHub Profile"
       >
         <svg
-          className="w-5 h-5 text-gray-700"
+          className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700"
           fill="currentColor"
           viewBox="0 0 24 24"
         >
@@ -57,13 +57,13 @@ export const LanguageSelector = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg border-2 border-gray-200 hover:bg-white transition-all"
+          className="flex items-center gap-1.5 sm:gap-2 bg-white/90 backdrop-blur-sm px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg shadow-lg border-2 border-gray-200 hover:bg-white transition-all"
         >
-          <span className="font-semibold text-gray-700">
+          <span className="font-semibold text-gray-700 text-sm sm:text-base">
             {currentLanguage.abbr}
           </span>
           <svg
-            className={`w-4 h-4 text-gray-600 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            className={`w-3 h-3 sm:w-4 sm:h-4 text-gray-600 transition-transform ${isOpen ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -85,18 +85,18 @@ export const LanguageSelector = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute top-full mt-2 right-0 bg-white rounded-lg shadow-xl border-2 border-gray-200 overflow-hidden z-50 min-w-[150px]"
+              className="absolute top-full mt-2 right-0 bg-white rounded-lg shadow-xl border-2 border-gray-200 overflow-hidden z-50 min-w-[140px] sm:min-w-[150px]"
             >
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => changeLanguage(lang.code)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-colors ${
+                  className={`w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 hover:bg-gray-100 transition-colors ${
                     i18n.language === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
                   }`}
                 >
-                  <span className="font-medium">{lang.abbr}</span>
-                  <span className="font-medium text-sm text-gray-500 ml-2">{lang.name}</span>
+                  <span className="font-medium text-sm sm:text-base">{lang.abbr}</span>
+                  <span className="font-medium text-xs sm:text-sm text-gray-500 ml-1 sm:ml-2">{lang.name}</span>
                   {i18n.language === lang.code && (
                     <span className="ml-auto text-blue-600">✓</span>
                   )}

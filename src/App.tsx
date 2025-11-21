@@ -30,6 +30,9 @@ const GameContent = () => {
   const { data: player } = usePlayerQuery();
   const { data: upgrades } = useUpgradesQuery();
   const { data: monster } = useMonsterQuery();
+  
+  // Filter purchased upgrades for floating buttons
+  const purchasedUpgrades = upgrades?.filter((upgrade) => upgrade.timesBought > 0) || [];
 
   // Check if there are affordable upgrades
   const hasAffordableUpgrades = useMemo(() => {
@@ -81,112 +84,77 @@ const GameContent = () => {
 
   return (
     <div 
-      className="min-h-screen pb-20 relative"
+      className="min-h-screen pb-20 md:pb-24 relative overflow-x-hidden"
       style={backgroundStyle}
     >
       {/* Language Selector */}
       <LanguageSelector />
 
-      {/* Floating Stats Icon Button - Left */}
-      <motion.button
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsStatsOpen(!isStatsOpen)}
-        className={`fixed left-2 lg:left-4 top-1/2 -translate-y-1/2 z-30 p-3 lg:p-4 rounded-full shadow-2xl transition-all ${
-          isStatsOpen
-            ? 'bg-blue-600 text-white'
-            : 'bg-white/90 backdrop-blur-sm text-blue-600 hover:bg-white'
-        }`}
-        aria-label={t('common.toggleStats')}
-      >
-        <svg
-          className="w-6 h-6 lg:w-8 lg:h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-          />
-        </svg>
-      </motion.button>
-
-      {/* Floating Cart Icon Button - Right */}
-      <div className="fixed right-2 lg:right-4 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center">
-        <motion.button
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsShopOpen(!isShopOpen)}
-          className={`p-3 lg:p-4 rounded-full shadow-2xl transition-all relative flex items-center justify-center ${
-            isShopOpen
-              ? 'bg-green-600 text-white'
-              : 'bg-white/90 backdrop-blur-sm text-green-600 hover:bg-white'
-          }`}
-          aria-label={t('common.toggleShop')}
-        >
-          <svg
-            className="w-6 h-6 lg:w-8 lg:h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          
-          {/* Notification Badge */}
-          {hasAffordableUpgrades && !isShopOpen && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute top-1/2 -translate-y-1/2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg border-2 border-white"
-            >
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
+      {/* Floating Upgrade Buttons - Mobile Only */}
+      {purchasedUpgrades.length > 0 && (
+        <div className="md:hidden fixed right-2 bottom-20 z-30 flex flex-col gap-2 max-h-[calc(100vh-200px)] overflow-y-auto">
+          {purchasedUpgrades.map((upgrade) => {
+            const getUpgradeNameKey = (id: number): string => {
+              const nameMap: Record<number, string> = {
+                1: 'upgrades.sharpClaws',
+                2: 'upgrades.powerStrike',
+                3: 'upgrades.autoAttack',
+                4: 'upgrades.rapidFire',
+              };
+              return nameMap[id] || `upgrade.${id}`;
+            };
+            
+            const upgradeName = t(getUpgradeNameKey(upgrade.id));
+            const upgradeIcon = upgrade.type === 'click' ? '⚔️' : '⚡';
+            
+            return (
+              <motion.div
+                key={upgrade.id}
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-lg px-3 py-2 shadow-lg flex items-center gap-2 min-w-[120px]"
               >
-                !
-              </motion.span>
-            </motion.div>
-          )}
-        </motion.button>
-      </div>
+                <span className="text-lg">{upgradeIcon}</span>
+                <div className="flex flex-col flex-1 min-w-0">
+                  <span className="text-xs font-semibold text-gray-800 truncate">
+                    {upgradeName}
+                  </span>
+                  <span className="text-[10px] bg-blue-500 text-white rounded-full px-1.5 py-0.5 font-bold inline-block w-fit">
+                    ×{upgrade.timesBought}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
-      
-
-      <div className="container mx-auto px-4 pb-8">
-        <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-start justify-center">
-          {/* Left Sidebar - Stats */}
-          <div className="w-full lg:w-80">
-            <StatsPanel isOpen={isStatsOpen} onClose={() => setIsStatsOpen(false)} />
-          </div>
-          
+      <div className="container mx-auto px-2 sm:px-4 pb-8 pt-4">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-center lg:items-start justify-center min-h-[calc(100vh-120px)] md:min-h-[calc(100vh-140px)]">
           {/* Center - Monster */}
-          <div className="flex items-center justify-center h-screen">
-          <div className="flex-1 flex justify-center">
-            <MonsterPanel />
-          </div>
-          </div>
-          {/* Right Sidebar - Shop */}
-          <div className="w-full lg:w-80">
-            <UpgradeShop isOpen={isShopOpen} onClose={() => setIsShopOpen(false)} />
+          <div className="flex items-center justify-center w-full flex-1 min-h-[400px] md:min-h-[500px] lg:min-h-[600px]">
+            <div className="flex-1 flex justify-center">
+              <MonsterPanel />
+            </div>
           </div>
         </div>
       </div>
       
+      {/* Stats Panel (overlay on mobile, sidebar on desktop) */}
+      <StatsPanel isOpen={isStatsOpen} onClose={() => setIsStatsOpen(false)} />
+      
+      {/* Shop Panel (overlay on mobile, sidebar on desktop) */}
+      <UpgradeShop isOpen={isShopOpen} onClose={() => setIsShopOpen(false)} />
+      
       {/* Bottom Upgrades Bar */}
-      <UpgradesBar />
+      <UpgradesBar 
+        isStatsOpen={isStatsOpen}
+        setIsStatsOpen={setIsStatsOpen}
+        isShopOpen={isShopOpen}
+        setIsShopOpen={setIsShopOpen}
+        hasAffordableUpgrades={hasAffordableUpgrades}
+      />
     </div>
   );
 };
