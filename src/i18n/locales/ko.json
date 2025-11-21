@@ -38,15 +38,19 @@
     ]
   },
   "upgrades": {
+    "title": "내 업그레이드",
     "yourUpgrades": "내 업그레이드:",
     "sharpClaws": "날카로운 발톱",
     "powerStrike": "강력한 일격",
     "autoAttack": "자동 공격",
-    "rapidFire": "빠른 발사"
+    "rapidFire": "빠른 발사",
+    "close": "업그레이드 닫기",
+    "noUpgrades": "아직 구매한 업그레이드가 없습니다"
   },
   "common": {
     "toggleStats": "통계 토글",
-    "toggleShop": "상점 토글"
+    "toggleShop": "상점 토글",
+    "toggleUpgrades": "업그레이드 토글"
   },
   "attackPhrases": {
     "funny": [

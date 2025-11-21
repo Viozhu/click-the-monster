@@ -6,6 +6,7 @@ import { MonsterPanel } from './components/MonsterPanel';
 import { StatsPanel } from './components/StatsPanel';
 import { UpgradeShop } from './components/UpgradeShop';
 import { UpgradesBar } from './components/UpgradesBar';
+import { PurchasedUpgradesPanel } from './components/PurchasedUpgradesPanel';
 import { LanguageSelector } from './components/LanguageSelector';
 import { useDps } from './hooks/useDps';
 import { usePlayerQuery } from './api/player';
@@ -26,6 +27,7 @@ const GameContent = () => {
   useDps();
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
+  const [isUpgradesOpen, setIsUpgradesOpen] = useState(false);
   const [gradientColors, setGradientColors] = useState<string[]>([]);
   const { data: player } = usePlayerQuery();
   const { data: upgrades } = useUpgradesQuery();
@@ -90,44 +92,42 @@ const GameContent = () => {
       {/* Language Selector */}
       <LanguageSelector />
 
-      {/* Floating Upgrade Buttons - Mobile Only */}
+      {/* Purchased Upgrades Button - Mobile Only */}
       {purchasedUpgrades.length > 0 && (
-        <div className="md:hidden fixed right-2 bottom-20 z-30 flex flex-col gap-2 max-h-[calc(100vh-200px)] overflow-y-auto">
-          {purchasedUpgrades.map((upgrade) => {
-            const getUpgradeNameKey = (id: number): string => {
-              const nameMap: Record<number, string> = {
-                1: 'upgrades.sharpClaws',
-                2: 'upgrades.powerStrike',
-                3: 'upgrades.autoAttack',
-                4: 'upgrades.rapidFire',
-              };
-              return nameMap[id] || `upgrade.${id}`;
-            };
-            
-            const upgradeName = t(getUpgradeNameKey(upgrade.id));
-            const upgradeIcon = upgrade.type === 'click' ? '⚔️' : '⚡';
-            
-            return (
-              <motion.div
-                key={upgrade.id}
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-lg px-3 py-2 shadow-lg flex items-center gap-2 min-w-[120px]"
-              >
-                <span className="text-lg">{upgradeIcon}</span>
-                <div className="flex flex-col flex-1 min-w-0">
-                  <span className="text-xs font-semibold text-gray-800 truncate">
-                    {upgradeName}
-                  </span>
-                  <span className="text-[10px] bg-blue-500 text-white rounded-full px-1.5 py-0.5 font-bold inline-block w-fit">
-                    ×{upgrade.timesBought}
-                  </span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsUpgradesOpen(!isUpgradesOpen)}
+          className={`md:hidden fixed left-2 bottom-20 z-30 p-3 rounded-full shadow-lg transition-all ${
+            isUpgradesOpen
+              ? 'bg-blue-600 text-white'
+              : 'bg-white/90 backdrop-blur-sm border-2 border-blue-200 text-blue-600 hover:bg-blue-50'
+          }`}
+          aria-label={t('common.toggleUpgrades')}
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+            />
+          </svg>
+          {purchasedUpgrades.length > 0 && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg border-2 border-white"
+            >
+              {purchasedUpgrades.length}
+            </motion.div>
+          )}
+        </motion.button>
       )}
 
       <div className="container mx-auto px-2 sm:px-4 pb-8 pt-4 overflow-hidden">
@@ -146,6 +146,9 @@ const GameContent = () => {
       
       {/* Shop Panel (overlay on mobile, sidebar on desktop) */}
       <UpgradeShop isOpen={isShopOpen} onClose={() => setIsShopOpen(false)} />
+      
+      {/* Purchased Upgrades Panel (overlay on mobile, sidebar on desktop) */}
+      <PurchasedUpgradesPanel isOpen={isUpgradesOpen} onClose={() => setIsUpgradesOpen(false)} />
       
       {/* Bottom Upgrades Bar */}
       <UpgradesBar 

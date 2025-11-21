@@ -38,15 +38,19 @@
     ]
   },
   "upgrades": {
+    "title": "Tus Mejoras",
     "yourUpgrades": "Tus Mejoras:",
     "sharpClaws": "Garras Afiladas",
     "powerStrike": "Golpe Poderoso",
     "autoAttack": "Ataque Automático",
-    "rapidFire": "Fuego Rápido"
+    "rapidFire": "Fuego Rápido",
+    "close": "Cerrar mejoras",
+    "noUpgrades": "Aún no has comprado mejoras"
   },
   "common": {
     "toggleStats": "Alternar estadísticas",
-    "toggleShop": "Alternar tienda"
+    "toggleShop": "Alternar tienda",
+    "toggleUpgrades": "Alternar mejoras"
   },
   "attackPhrases": {
     "funny": [

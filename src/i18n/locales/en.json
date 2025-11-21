@@ -38,15 +38,19 @@
     ]
   },
   "upgrades": {
+    "title": "Your Upgrades",
     "yourUpgrades": "Your Upgrades:",
     "sharpClaws": "Sharp Claws",
     "powerStrike": "Power Strike",
     "autoAttack": "Auto Attack",
-    "rapidFire": "Rapid Fire"
+    "rapidFire": "Rapid Fire",
+    "close": "Close upgrades",
+    "noUpgrades": "No upgrades purchased yet"
   },
   "common": {
     "toggleStats": "Toggle stats",
-    "toggleShop": "Toggle shop"
+    "toggleShop": "Toggle shop",
+    "toggleUpgrades": "Toggle upgrades"
   },
   "attackPhrases": {
     "funny": [
