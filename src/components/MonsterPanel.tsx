@@ -208,7 +208,6 @@ export const MonsterPanel = () => {
           onClick={handleClick}
           onContextMenu={(e) => e.preventDefault()}
           onDragStart={(e) => e.preventDefault()}
-          onSelectStart={(e) => e.preventDefault()}
           className="cursor-pointer select-none relative"
           style={{
             userSelect: 'none',
@@ -217,7 +216,7 @@ export const MonsterPanel = () => {
             msUserSelect: 'none',
             touchAction: 'manipulation',
             WebkitTouchCallout: 'none',
-          }}
+          } as React.CSSProperties}
         >
           <div className="relative">
           {/* Spawn Effect - Glow Ring */}
@@ -295,19 +294,18 @@ export const MonsterPanel = () => {
             <img
               src={monster.imageUrl}
               alt={monster.name}
-              draggable="false"
+              draggable={false}
               onDragStart={(e) => e.preventDefault()}
               onContextMenu={(e) => e.preventDefault()}
-              onSelectStart={(e) => e.preventDefault()}
               className="w-full h-full object-cover pointer-events-none"
               style={{
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
                 MozUserSelect: 'none',
                 msUserSelect: 'none',
-                WebkitUserDrag: 'none',
                 WebkitTouchCallout: 'none',
-              }}
+                WebkitUserDrag: 'none',
+              } as React.CSSProperties}
               onError={(e) => {
                 // Fallback to emoji if image fails to load
                 const target = e.target as HTMLImageElement;
