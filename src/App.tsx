@@ -119,13 +119,13 @@ const GameContent = () => {
             />
           </svg>
           {purchasedUpgrades.length > 0 && (
-            <motion.div
+              <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg border-2 border-white"
             >
               {purchasedUpgrades.length}
-            </motion.div>
+              </motion.div>
           )}
         </motion.button>
       )}
