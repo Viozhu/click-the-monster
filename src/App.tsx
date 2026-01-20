@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { MonsterPanel } from './components/MonsterPanel';
 import { StatsPanel } from './components/StatsPanel';
@@ -8,6 +8,7 @@ import { UpgradeShop } from './components/UpgradeShop';
 import { UpgradesBar } from './components/UpgradesBar';
 import { PurchasedUpgradesPanel } from './components/PurchasedUpgradesPanel';
 import { LanguageSelector } from './components/LanguageSelector';
+import { SplashScreen } from './components/SplashScreen';
 import { useDps } from './hooks/useDps';
 import { usePlayerQuery } from './api/player';
 import { useUpgradesQuery } from './api/upgrades';
@@ -163,9 +164,31 @@ const GameContent = () => {
 };
 
 function App() {
+  const [hasStarted, setHasStarted] = useState(false);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <GameContent />
+      <AnimatePresence mode="wait">
+        {!hasStarted ? (
+          <motion.div
+            key="splash"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <SplashScreen onStart={() => setHasStarted(true)} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="game"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <GameContent />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </QueryClientProvider>
   );
 }
