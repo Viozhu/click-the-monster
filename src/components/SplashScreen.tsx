@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { GLSLHills } from '@/components/ui/glsl-hills';
 
 interface SplashScreenProps {
@@ -8,7 +7,6 @@ interface SplashScreenProps {
 }
 
 export const SplashScreen = ({ onStart }: SplashScreenProps) => {
-  const { t } = useTranslation();
   const [isStarting, setIsStarting] = useState(false);
 
   const handleStart = () => {
